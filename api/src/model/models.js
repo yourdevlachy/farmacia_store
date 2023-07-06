@@ -1,70 +1,75 @@
-import { ORM } from './orm'
-import { DataTypes, Sequelize } from 'sequelize'
+import { ORM } from './orm';
+import { DataTypes, Sequelize } from 'sequelize';
 
 const System = ORM.define('system', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-  groupInit: { type: DataTypes.BOOLEAN, defaultValue: false },
-  userInit: { type: DataTypes.BOOLEAN, defaultValue: false },
-  default: { type: DataTypes.BOOLEAN, defaultValue: true },
   createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE,
-})
+  updatedAt: Sequelize.DATE
+});
 
-const User = ORM.define('user', {
+const TypeProduct = ORM.define('type', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-  username: { type: DataTypes.STRING, allowNull: false, unique: true },
-  email: { type: DataTypes.STRING, allowNull: false, unique: true, validate: { isEmail: true } },
-  password: { type: DataTypes.STRING, allowNull: true },
-  isSetAvatar: { type: DataTypes.BOOLEAN, allowNull: true, defaultValue: false },
+  name: { type: DataTypes.STRING, allowNull: false, unique: true },
+  description: { type: DataTypes.STRING, allowNull: true },
+  createdAt: Sequelize.DATE,
+  updatedAt: Sequelize.DATE
+});
+
+const CategoryProduct = ORM.define('category', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+  name: { type: DataTypes.STRING, allowNull: false, unique: true },
+  description: { type: DataTypes.STRING, allowNull: true },
+  createdAt: Sequelize.DATE,
+  updatedAt: Sequelize.DATE
+});
+
+const Product = ORM.define('product', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+  name: { type: DataTypes.STRING, allowNull: false, unique: true },
   image: { type: DataTypes.STRING, allowNull: true },
-  defaultGroup: { type: DataTypes.INTEGER, allowNull: true, defaultValue: 0 },
-  activity: { type: DataTypes.DATE, allowNull: true },
+  prize: { type: DataTypes.DECIMAL, allowNull: false },
   createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE,
-})
+  updatedAt: Sequelize.DATE
+});
 
-const Group = ORM.define('group', {
+const History = ORM.define('history', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-  name: { type: DataTypes.STRING, allowNull: false },
-  image: { type: DataTypes.STRING, allowNull: true },
-  amount: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
-  type: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true }, //Define si el grupo es privado o publico
-  createdBy: { type: DataTypes.INTEGER, allowNull: true }, //Usuario que crea el grupo, el dueño
-  date: Sequelize.DATE,
-  createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE,
-})
-
-const User_Group = ORM.define('user_group', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
-  },
-  createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE,
-})
-
-const Message = ORM.define('message', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-  conversation: { type: DataTypes.UUIDV4, allowNull: false },
-  message: { type: DataTypes.STRING, allowNull: false },
-  sender: { type: DataTypes.INTEGER, allowNull: false },
-  receiver: { type: DataTypes.INTEGER, allowNull: false },
   type: { type: DataTypes.STRING, allowNull: false },
+  amount: { type: DataTypes.DECIMAL, allowNull: true, defaultValue: 0.0 },
   date: Sequelize.DATE,
   createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE,
-})
+  updatedAt: Sequelize.DATE
+});
 
-// User.Messages = User.hasMany(Message, { targetKey: 'id', foreignKey: 'sender' })
-// Message.User = Message.hasOne(User)
+const Balance = ORM.define('balance', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+  startDate: { type: DataTypes.DATE, allowNull: false },
+  endDate: { type: DataTypes.DATE, allowNull: false },
+  totalSales: { type: DataTypes.DECIMAL, allowNull: false },
+  totalQuantitySold: { type: DataTypes.INTEGER, allowNull: false },
+  initialQuantityByProduct: { type: DataTypes.JSON, allowNull: false },
+  createdAt: DataTypes.DATE,
+  updatedAt: DataTypes.DATE
+});
 
-// Group.Messages = Group.hasMany(Message)
-// Message.Group = Message.hasOne(Group)
+const BalanceProduct = ORM.define('balanceProduct', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
+  initialQuantity: { type: DataTypes.INTEGER, allowNull: false },
+  currentQuantity: { type: DataTypes.INTEGER, allowNull: false },
+  createdAt: DataTypes.DATE,
+  updatedAt: DataTypes.DATE
+});
 
-User.belongsToMany(Group, { through: User_Group })
-Group.belongsToMany(User, { through: User_Group })
+TypeProduct.hasMany(Product);
+Product.hasOne(TypeProduct);
 
-export { User, Message, Group, User_Group, System }
+CategoryProduct.hasMany(Product);
+Product.hasOne(CategoryProduct);
+
+Product.hasMany(History);
+History.belongsTo(Product);
+
+Balance.belongsToMany(Product, { through: BalanceProduct });
+Product.belongsToMany(Balance, { through: BalanceProduct });
+
+export { System, TypeProduct, CategoryProduct, Product, History, Balance, BalanceProduct };

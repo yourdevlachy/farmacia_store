@@ -1,13 +1,13 @@
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 // cargando las variables de entorno
-dotenv.config()
+dotenv.config();
 
 // cargando puertos de configuracion
 export const Configuration = {
   PORT: process.env.PORT || 4000,
   SERVER: process.env.SERVER || 'localhost',
-  APPNAME: process.env.APPNAME || 'api.chat',
+  APPNAME: process.env.APPNAME || 'farmacia_api',
   FRONTHOST: process.env.FRONTHOST || 'http://localhost:3000',
-  DB_SYNC: process.env.DB_SYNCHRONIZE || 'force',
-}
+  DB_SYNC: process.env.DB_SYNCHRONIZE || 'force'
+};
