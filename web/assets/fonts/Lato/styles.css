@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'LatoBlack';
+  font-style: normal;
+  font-weight: 900;
+  src: local('LatoBlack'), url('lato-black.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'LatoBold';
+  font-style: normal;
+  font-weight: 700 !important;
+  src: local('LatoBold'), url('lato-bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'LatoRegular';
+  font-style: normal;
+  font-weight: 400;
+  src: local('LatoRegular'), url('lato-regular.woff') format('woff');
+}

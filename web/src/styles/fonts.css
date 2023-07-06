@@ -1,0 +1,19 @@
+/* @import '../assets/fonts/source.css'; */
+
+:root {
+  --fz-xsss: 10px;
+  --fz-xss: 12px;
+  --fz-xs: 14px;
+  --fz-m: 16px;
+  --fz-l: 18px;
+  --fz-ll: 20px;
+  --fz-xl: 22px;
+  --fz-xxl: 24px;
+  --fz-xxll: 28px;
+  --fz-xlll: 30px;
+  --fz-xxllls: 45px;
+  --fz-xxlll: 40px;
+  --fz-xxxl: 50px;
+  /* --ff-tgp-regular: 'trumpgothicpro'; */
+  /* --ff-nhu-regular: 'neue-haas-unica'; */
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Weecover</title>
+  <style>
+    html, body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body style="margin:0;">
+  <!-- <script async id="__cn_generic_script__9fc68919-0d89-48c6-9cba-ec88fbb5fc9c">!function(c){function e(){if(!c.querySelector("#__cn_client_script_9fc68919-0d89-48c6-9cba-ec88fbb5fc9c")){var e=c.createElement("script");e.setAttribute("src","https://cdn.connectif.cloud/eu3/client-script/9fc68919-0d89-48c6-9cba-ec88fbb5fc9c"),c.body.appendChild(e)}}"complete"===c.readyState||"interactive"===c.readyState?e():c.addEventListener("DOMContentLoaded",e)}(document);</script> -->
+  <div id="widget1"></div>
+  <script src="http://localhost:3000/downloader.js"></script>
+  <script>
+    document.body.addEventListener("widget:loaded", function() {
+        const {eventBus, render} = weecoverWidget.default.widget('widget1')
+        render('ES', 'TEST')
+      })
+  </script>
+</body>
+</html>
