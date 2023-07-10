@@ -1,9 +1,7 @@
-import express from 'express'
-import { SystemBLL } from '../../logic/system'
+import express from 'express';
+import { SystemBLL } from '../../logic/system';
 
-export const SystemRoutes = express.Router()
-
-SystemRoutes.get('/', SystemBLL.GetHome)
+export const SystemRoutes = express.Router();
 
 /**
  * @swagger
@@ -14,7 +12,7 @@ SystemRoutes.get('/', SystemBLL.GetHome)
  *      '200':
  *        description: Get the health of the system, 'It works!' if the system is healthy of course
  */
-SystemRoutes.get('/health', SystemBLL.HealthCheck)
+SystemRoutes.get('/health', SystemBLL.HealthCheck);
 
 /**
  * @swagger
@@ -25,4 +23,4 @@ SystemRoutes.get('/health', SystemBLL.HealthCheck)
  *      '200':
  *        description: Get the version of the system
  */
-SystemRoutes.get('/version', SystemBLL.SystemVersion)
+SystemRoutes.get('/version', SystemBLL.SystemVersion);
